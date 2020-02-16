@@ -1,0 +1,31 @@
+﻿#####################################################################################################################################################################
+#                                                                                                                                                                   #
+# This config file sets up the automatic ticket interview which is organised in a decision tree of messages.                                                        #
+#                                                                                                                                                                   #
+# Each message in the tree has the following parameters:                                                                                                            #
+# text: This text will be the content of the interview message sent                                                                                                 #
+# conditions (optional): A regex filter, this message can only be displayed if the user's response matches this. (The first message cannot use this parameter)      #
+# paths (optional): A list of the next messages to be considered after the user responds to this one, the first one with a valid condition parameter will be sent.  #
+#                                                                                                                                                                   #
+#####################################################################################################################################################################
+
+interview:
+    message: "Is this ticket a ban appeal? (Yes/No)"
+    paths:
+        - message:
+            text: "What is your user name?"
+            conditions: "yes"
+            paths:
+                - message:
+                    text: "Please write your appeal below, motivate why you think you should be unbanned."
+        - message:
+            text: "Is this an issue with feature X? (Yes/No)"
+            paths:
+                - message:
+                    text: "Please paste the error message here."
+                    conditions: "yes"
+                    paths:
+                        - message:
+                            text: "Please write a short description of the problem, describe what you were doing at the time and what you have tried to do to solve it."
+                - message:
+                    text: "Please write your general support ticket below, support staff will get to you when they are able to."
